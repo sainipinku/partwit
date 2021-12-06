@@ -16,4 +16,5 @@ class MyImages {
   static const String ic_profile = "assets/images/ic_profile_circle.png";
   static const String ic_feather_user = "assets/images/ic_feather_user.png";
   static const String ic_person = "assets/images/ic_person.png";
+  static const String ic_img = "assets/images/img_home.png";
 }

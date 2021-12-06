@@ -34,6 +34,8 @@ class Constant {
 
   static const CONFIRM_PSW = 'Confirm Password';
   static const REGISTER = 'Register';
+  static const RESETNEWPASSWORD = 'Set New Password';
+  static const RESETNEWPASS = 'Set the new password for your account so you can login and access all the features';
 
   static const VERIFICATION = 'Verification';
   static const ENTER_VERIFICATION = 'Please enter the verification code';

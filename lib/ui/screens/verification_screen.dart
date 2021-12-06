@@ -133,11 +133,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         Constant.SUBMIT,
                         54,
                         onPressed: () {
-                          try {
-                            Get.toNamed(MyRouter.createProfile);
-                          } on Exception catch (e) {
-                            e.printError();
+                          if (verification_formKey.currentState!.validate()) {
+
+                            FocusScope.of(this.context).requestFocus(FocusNode());
+                            try {
+                              Get.toNamed(MyRouter.resetNewPasswordScreen);
+                            } on Exception catch (e) {
+                              e.printError();
+                            }
                           }
+
                         },
                       ),
                     ],

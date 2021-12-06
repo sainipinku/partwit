@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
 import 'package:part_wit/ui/widgets/custom_button.dart';
-import 'package:part_wit/ui/widgets/custom_checkbox.dart';
 import 'package:part_wit/ui/widgets/light_text_body.dart';
-import 'package:part_wit/ui/widgets/light_text_body_underline.dart';
 import 'package:part_wit/ui/widgets/light_text_head.dart';
+import 'package:part_wit/ui/widgets/light_text_title.dart';
 import 'package:part_wit/utiles/constant.dart';
 import 'package:part_wit/utiles/utility.dart';
-
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+import 'package:get/get_core/src/get_main.dart';
+class ResetNewPassword extends StatefulWidget {
+  const ResetNewPassword({Key? key}) : super(key: key);
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _ResetNewPasswordState createState() => _ResetNewPasswordState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final signup_formKey = GlobalKey<FormState>();
+class _ResetNewPasswordState extends State<ResetNewPassword> {
+  final resetpass_formKey = GlobalKey<FormState>();
+  bool _showPassword = false,_showconfirmPassword = false,_isPasswordFocus = false,_isConfirmPasswordFocus = false;
+  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _confrimpasswordController = new TextEditingController();
+  FocusNode passWordFocus = new FocusNode();
+  FocusNode confrmPassWordFocus = new FocusNode();
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -51,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: MyAppTheme.backgroundColor,
         body: SingleChildScrollView(
           child: Form(
-            key: signup_formKey,
+            key: resetpass_formKey,
             child: Column(
               children: [
                 SizedBox(
@@ -64,42 +66,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: screenSize.height * 0.03,
                 ),
                 const LightTextHead(
-                  data: Constant.SIGNUP,
+                  data: Constant.RESETNEWPASSWORD,
                 ),
                 SizedBox(
-                  height: screenSize.height * 0.01,
+                  height: screenSize.height * 0.05,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 60, 20, 10),
-                  child: TextFormField(
-                    style: const TextStyle(
-                        color: MyAppTheme.textPrimary,
+                const LightTextTitle(
+                  data: Constant.RESETNEWPASS,
+                ),
+                SizedBox(
+                  height: screenSize.height * 0.05,
+                ),
 
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14),
-                    obscureText: false,
-                    //  controller: emailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_EMAIL,
-                      prefixIcon: Image.asset(MyImages.ic_mail),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        const BorderSide(color: MyAppTheme.buttonShadow_Color),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: MyAppTheme.buttonShadow_Color),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                      border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: MyAppTheme.whiteColor, width: 2.0),
-                          borderRadius: BorderRadius.circular(15.0)),
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: TextFormField(
@@ -107,8 +85,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: MyAppTheme.textPrimary,
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
-                    obscureText: false,
-                    // controller: passwordController,
+                    controller: _passwordController,
+                    obscureText: !this._showPassword,
+                    focusNode: passWordFocus,
+                    onTap: () {
+                      print("EMAIN TAP");
+                      //emailFocus.unfocus();
+                      setState(() {
+                        _isConfirmPasswordFocus = false;
+                        _isPasswordFocus = true;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       suffixIconConstraints: const BoxConstraints(
                           minHeight: 24,
@@ -142,8 +135,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: MyAppTheme.textPrimary,
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
-                    obscureText: false,
-                    // controller: passwordController,
+                    controller: _confrimpasswordController,
+                    obscureText: !this._showconfirmPassword,
+                    focusNode: confrmPassWordFocus,
+                    onTap: () {
+                      print("EMAIN TAP");
+                      //emailFocus.unfocus();
+                      setState(() {
+                        _isConfirmPasswordFocus = true;
+                        _isPasswordFocus = false;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       suffixIconConstraints: const BoxConstraints(
                           minHeight: 44,
@@ -173,22 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: screenSize.height * 0.03,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomCheckbox(key: signup_formKey,),
-                    SizedBox(width: screenSize.height * 0.001,),
-                    const LightTextBody(data: Constant.AGREE),
-                    SizedBox(width: screenSize.height * 0.001,),
-                    const LightTextBodyBlack(data: Constant.TERMS,),
-                    SizedBox(width: screenSize.height * 0.001,),
-                    const LightTextBody(data: Constant.AND),
-                    SizedBox(width: screenSize.height * 0.001,),
 
-                    const LightTextBodyBlack(data: Constant.POLICY),
-                  ],
-                ),
 
                 SizedBox(
                   height: screenSize.height * 0.02,
@@ -198,47 +191,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     children: [
                       CustomButton(
-                        Constant.REGISTER,
+                        Constant.SUBMIT,
                         54,
                         onPressed: () {
-                          try {
-                            Get.toNamed(MyRouter.verificationScreen);
-                          } on Exception catch (e) {
-                            e.printError();
+                          if (resetpass_formKey.currentState!.validate()) {
+                            _isConfirmPasswordFocus = false;
+                            _isPasswordFocus = false;
+                            FocusScope.of(this.context).requestFocus(FocusNode());
+                            try {
+                              Get.toNamed(MyRouter.homeScreen);
+                            } on Exception catch (e) {
+                              e.printError();
+                            }
                           }
                         },
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: screenSize.height * 0.02,
-                ),
-                const LightTextBody(data: Constant.ENTER_SOCIAL_MEDIA),
-                SizedBox(
-                  height: screenSize.height * 0.02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(MyImages.ic_fb, ),
-                    SizedBox(width: screenSize.height * 0.02,),
-                    Image.asset(MyImages.ic_gplus, ),
-                    SizedBox(width: screenSize.height * 0.02,),
-                    Image.asset(MyImages.ic_mac, ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenSize.height * 0.02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const LightTextBody(data: Constant.ALREADY_AN_ACC),
-                    SizedBox(width: screenSize.height * 0.01,),
-                    const LightTextBodyBlack(data: Constant.SIGNIN_HERE,)
-                  ],
-                ),
+
 
               ],
             ),
@@ -248,5 +219,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-
-

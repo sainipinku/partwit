@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:part_wit/repository/user_repository.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
@@ -10,6 +11,8 @@ import 'package:part_wit/ui/widgets/custom_button.dart';
 import 'package:part_wit/ui/widgets/light_text_body.dart';
 import 'package:part_wit/ui/widgets/light_text_head.dart';
 import 'package:part_wit/ui/widgets/light_text_sub_head.dart';
+import 'package:part_wit/utiles/Helpers.dart';
+import 'package:part_wit/utiles/constaint.dart';
 import 'package:part_wit/utiles/constant.dart';
 import 'package:part_wit/utiles/utility.dart';
 
@@ -179,9 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter email address';
-                      } else if (!isEmail(_emailController.text)) {
+                      } /*else if (!isEmail(_emailController.text)) {
                         return 'Please enter valid email address';
-                      }
+                      }*/
                       return null;
                     },
                     decoration: InputDecoration(
@@ -250,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: MyAppTheme.buttonShadow_Color, width: 2.0),
                           borderRadius: BorderRadius.circular(15.0)),
                       suffixIcon: IconButton(
-                        icon:this._showPassword ? ImageIcon(AssetImage(MyImages.ic_eye_close)):ImageIcon(AssetImage(MyImages.ic_eye_open))/*Icon(
+                        icon:this._showPassword ? ImageIcon(AssetImage(MyImages.ic_eye_open)):ImageIcon(AssetImage(MyImages.ic_eye_close))/*Icon(
                           this._showPassword ? Icons.visibility_off : Icons.visibility,
                           color: this._showPassword ? Colors.black : Colors.grey,
                         )*/,
@@ -288,7 +291,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             _isEmailFocus = false;
                             _isPasswordFocus = false;
                             FocusScope.of(this.context).requestFocus(FocusNode());
+                            Helpers.verifyInternet().then((intenet) {
+                              if (intenet != null && intenet) {
+                                createLogin(_emailController.text,_passwordController.text,context).then((response) {
+                                  setState(() {
+                                    loginAndRegistrationresponse = response;
+                                    print(loginAndRegistrationresponse!.token);
+                                  });
+                                });
+                              }
+                              else {
+                               Helpers.createSnackBar(context, "Please check your internate connection");
+                              }
+                            }
+                            );
 
+                            //repository.createLogin(emailControl.text, pwControl.text, context,country!);
                           }
                         },
                       ),

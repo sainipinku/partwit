@@ -14,7 +14,6 @@ import 'package:part_wit/ui/widgets/light_text_head.dart';
 import 'package:part_wit/utiles/constant.dart';
 import 'package:part_wit/utiles/utility.dart';
 
-
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
 
@@ -24,6 +23,9 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final forgot_Key = GlobalKey<FormState>();
+  TextEditingController _emailController = new TextEditingController();
+  FocusNode emailFocus = new FocusNode();
+  bool _isEmailFocus = false;
 
   @override
   void dispose() {
@@ -84,7 +86,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
                     obscureText: false,
-                    //  controller: emailController,
+                    focusNode: emailFocus,
+                    controller: _emailController,
+                    onTap: () {
+                      setState(() {
+                        _isEmailFocus = true;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter email address';
+                      } else if (!isEmail(_emailController.text)) {
+                        return 'Please enter valid email address';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
@@ -97,9 +113,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                       enabledBorder: const OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: MyAppTheme.buttonShadow_Color),
+                          BorderSide(color: MyAppTheme.buttonShadow_Color),
                           borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
+                          BorderRadius.all(Radius.circular(15.0))),
                       border: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: MyAppTheme.whiteColor, width: 2.0),
@@ -121,10 +137,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         Constant.SUBMIT,
                         54,
                         onPressed: () {
-                          try {
-                             Get.toNamed(MyRouter.verificationScreen,arguments: Constant.PASS_VALUE);
-                          } on Exception catch (e) {
-                            e.printError();
+                          if (forgot_Key.currentState!.validate()) {
+                            _isEmailFocus = false;
+                            FocusScope.of(this.context)
+                                .requestFocus(FocusNode());
+                            try {
+                              Get.toNamed(MyRouter.verificationScreen,
+                                  arguments: Constant.PASS_VALUE);
+                            } on Exception catch (e) {
+                              e.printError();
+                            }
                           }
                         },
                       ),
@@ -156,4 +178,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
     );
   }
+}
+
+bool isEmail(String em) {
+  String p =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+  RegExp regExp = new RegExp(p);
+
+  return regExp.hasMatch(em);
 }
