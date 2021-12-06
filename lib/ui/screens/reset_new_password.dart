@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
@@ -65,14 +66,14 @@ class _ResetNewPasswordState extends State<ResetNewPassword> {
                 SizedBox(
                   height: screenSize.height * 0.03,
                 ),
-                const LightTextHead(
-                  data: Constant.RESETNEWPASSWORD,
+                  LightTextHead(
+                  data: 'setNewPsw'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextTitle(
-                  data: Constant.RESETNEWPASS,
+                  LightTextTitle(
+                  data: 'setNewPassword'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.05,
@@ -109,7 +110,7 @@ class _ResetNewPasswordState extends State<ResetNewPassword> {
                       ),
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_PASSWORD,
+                      hintText: 'password'.tr,
                       prefixIcon:  Image.asset(MyImages.ic_padlock),
                       suffixIcon: Image.asset(MyImages.ic_eye_close),
                       focusedBorder: OutlineInputBorder(
@@ -159,7 +160,7 @@ class _ResetNewPasswordState extends State<ResetNewPassword> {
                       ),
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.CONFIRM_PSW,
+                      hintText: 'confirmPsw'.tr,
                       prefixIcon:Image.asset(MyImages.ic_padlock),
                       suffixIcon: Image.asset(MyImages.ic_eye_open),
                       focusedBorder: OutlineInputBorder(
@@ -191,8 +192,8 @@ class _ResetNewPasswordState extends State<ResetNewPassword> {
                   child: Column(
                     children: [
                       CustomButton(
-                        Constant.SUBMIT,
-                        54,
+                       'submit'.tr,
+
                         onPressed: () {
                           if (resetpass_formKey.currentState!.validate()) {
                             _isConfirmPasswordFocus = false;

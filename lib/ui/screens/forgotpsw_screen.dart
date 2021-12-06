@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
@@ -67,14 +68,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextHead(
-                  data: Constant.FORGOT_PSW,
+                  LightTextHead(
+                  data: 'forgotPsw'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextBody(data: Constant.EMAIL_TEXT),
-                const LightTextBody(data: Constant.EMAIL_TEXT1),
+                  LightTextBody(data: 'email_text'.tr),
+                  LightTextBody(data: 'email_text_'.tr),
                 SizedBox(
                   height: screenSize.height * 0.01,
                 ),
@@ -104,7 +105,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_EMAIL,
+                      hintText: 'email'.tr,
                       prefixIcon: Image.asset(MyImages.ic_mail),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -130,12 +131,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   height: screenSize.height * 0.02,
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  padding:   const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(
                     children: [
                       CustomButton(
-                        Constant.SUBMIT,
-                        54,
+                       'submit'.tr,
+
                         onPressed: () {
                           if (forgot_Key.currentState!.validate()) {
                             _isEmailFocus = false;
@@ -162,12 +163,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const LightTextBody(data: Constant.DONT_HAVE),
+                      LightTextBody(data: 'dont_have'.tr),
                     SizedBox(
                       width: screenSize.height * 0.01,
                     ),
-                    const LightTextBodyBlack(
-                      data: Constant.SIGNUP_HERE,
+                      LightTextBodyBlack(
+                      data: 'signUp_here'.tr,
                     )
                   ],
                 ),

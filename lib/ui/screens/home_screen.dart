@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:part_wit/ui/screens/verification_screen.dart';
+import 'package:part_wit/ui/screens/profile/user_profile.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
-import 'package:part_wit/ui/widgets/light_text_head.dart';
 import 'package:part_wit/utiles/utility.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -39,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
    Center(child: Text('Search Page',textAlign: TextAlign.center, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),) ,
     Center(child: Text('Add Page', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),) ,
     Center(child: Text('Chat Page', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),)  ,
-    Center(child: Text('Profile Page', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),)  ,
+    UserProfile(),
+   // Center(child: Text('Profile Page', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),)  ,
   ];
   @override
   Widget build(BuildContext context) {

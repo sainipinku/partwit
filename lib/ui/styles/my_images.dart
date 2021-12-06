@@ -17,4 +17,8 @@ class MyImages {
   static const String ic_feather_user = "assets/images/ic_feather_user.png";
   static const String ic_person = "assets/images/ic_person.png";
   static const String ic_img = "assets/images/img_home.png";
+
+  /// svg images linkes
+  static const String icStar = "assets/icons/ic_star.svg";
+  static const String icRightArrow = "assets/icons/ic_right_arrow.svg";
 }

@@ -5,11 +5,11 @@ import 'light_text_body.dart';
 
 class CustomButton extends StatelessWidget {
   final String inputText;
-  final double height;
+
   final GestureTapCallback onPressed;
 
 
-  const CustomButton(this.inputText, this.height, {Key? key,  required this.onPressed}) : super(key: key);
+  const CustomButton(this.inputText,   {Key? key,  required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CustomButton extends StatelessWidget {
       child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            Image.asset(MyImages.ic_button_bg,),
+            Image.asset(MyImages.ic_button_bg,width: double.infinity,),
             LightTextBody(
               data: inputText,
             ),

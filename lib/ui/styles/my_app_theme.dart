@@ -17,6 +17,8 @@ class MyAppTheme {
   static const buttonShadow_Color = Color(0xFFFFE572);
   static const  pin_bg_Color = Color(0xFFF7DB5F);
   static const black_Color = Color(0xFF000000);
+  static const  items_bg_Color = Color(0xFFF5F5F5);
+  static const  plan_bg_Color = Color(0x70707045);
 
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: backgroundColor,

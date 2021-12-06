@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
@@ -14,7 +15,6 @@ import 'package:part_wit/ui/widgets/light_text_head.dart';
 import 'package:part_wit/utiles/constant.dart';
 import 'package:part_wit/utiles/utility.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -24,6 +24,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final signup_formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -39,6 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       const SystemUiOverlayStyle(statusBarColor: MyAppTheme.backgroundColor),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -63,8 +65,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: screenSize.height * 0.03,
                 ),
-                const LightTextHead(
-                  data: Constant.SIGNUP,
+                LightTextHead(
+                  data: 'signUp'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.01,
@@ -74,7 +76,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: TextFormField(
                     style: const TextStyle(
                         color: MyAppTheme.textPrimary,
-
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
                     obscureText: false,
@@ -82,17 +83,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_EMAIL,
+                      hintText: 'email'.tr,
                       prefixIcon: Image.asset(MyImages.ic_mail),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        const BorderSide(color: MyAppTheme.buttonShadow_Color),
+                        borderSide: const BorderSide(
+                            color: MyAppTheme.buttonShadow_Color),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       enabledBorder: const OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: MyAppTheme.buttonShadow_Color),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                              BorderSide(color: MyAppTheme.buttonShadow_Color),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
                       border: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: MyAppTheme.whiteColor, width: 2.0),
@@ -110,24 +112,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     obscureText: false,
                     // controller: passwordController,
                     decoration: InputDecoration(
-                      suffixIconConstraints: const BoxConstraints(
-                          minHeight: 24,
-                          minWidth: 24
-                      ),
+                      suffixIconConstraints:
+                          const BoxConstraints(minHeight: 24, minWidth: 24),
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_PASSWORD,
-                      prefixIcon:  Image.asset(MyImages.ic_padlock),
+                      hintText: 'password'.tr,
+                      prefixIcon: Image.asset(MyImages.ic_padlock),
                       suffixIcon: Image.asset(MyImages.ic_eye_close),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        const BorderSide(color: MyAppTheme.buttonShadow_Color),
+                        borderSide: const BorderSide(
+                            color: MyAppTheme.buttonShadow_Color),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       enabledBorder: const OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: MyAppTheme.buttonShadow_Color),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                              BorderSide(color: MyAppTheme.buttonShadow_Color),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
                       border: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: MyAppTheme.buttonShadow_Color, width: 2.0),
@@ -145,24 +146,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     obscureText: false,
                     // controller: passwordController,
                     decoration: InputDecoration(
-                      suffixIconConstraints: const BoxConstraints(
-                          minHeight: 44,
-                          minWidth: 44
-                      ),
+                      suffixIconConstraints:
+                          const BoxConstraints(minHeight: 44, minWidth: 44),
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.CONFIRM_PSW,
-                      prefixIcon:Image.asset(MyImages.ic_padlock),
+                      hintText: 'confirmPsw'.tr,
+                      prefixIcon: Image.asset(MyImages.ic_padlock),
                       suffixIcon: Image.asset(MyImages.ic_eye_open),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        const BorderSide(color: MyAppTheme.buttonShadow_Color),
+                        borderSide: const BorderSide(
+                            color: MyAppTheme.buttonShadow_Color),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       enabledBorder: const OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: MyAppTheme.buttonShadow_Color),
-                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                              BorderSide(color: MyAppTheme.buttonShadow_Color),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
                       border: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: MyAppTheme.buttonShadow_Color, width: 2.0),
@@ -177,19 +177,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CustomCheckbox(key: signup_formKey,),
-                    SizedBox(width: screenSize.height * 0.001,),
-                    const LightTextBody(data: Constant.AGREE),
-                    SizedBox(width: screenSize.height * 0.001,),
-                    const LightTextBodyBlack(data: Constant.TERMS,),
-                    SizedBox(width: screenSize.height * 0.001,),
-                    const LightTextBody(data: Constant.AND),
-                    SizedBox(width: screenSize.height * 0.001,),
-
-                    const LightTextBodyBlack(data: Constant.POLICY),
+                    CustomCheckbox(
+                      key: signup_formKey,
+                    ),
+                    SizedBox(
+                      width: screenSize.height * 0.001,
+                    ),
+                    LightTextBody(data: 'agree'.tr),
+                    SizedBox(
+                      width: screenSize.height * 0.001,
+                    ),
+                    LightTextBodyBlack(
+                      data: 'terms'.tr,
+                    ),
+                    SizedBox(
+                      width: screenSize.height * 0.001,
+                    ),
+                    LightTextBody(data: 'and'.tr),
+                    SizedBox(
+                      width: screenSize.height * 0.001,
+                    ),
+                    LightTextBodyBlack(data: 'policy'.tr),
                   ],
                 ),
-
                 SizedBox(
                   height: screenSize.height * 0.02,
                 ),
@@ -198,8 +208,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     children: [
                       CustomButton(
-                        Constant.REGISTER,
-                        54,
+                       'register'.tr,
+
                         onPressed: () {
                           try {
                             Get.toNamed(MyRouter.verificationScreen);
@@ -214,18 +224,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: screenSize.height * 0.02,
                 ),
-                const LightTextBody(data: Constant.ENTER_SOCIAL_MEDIA),
+                LightTextBody(data: 'social_media_text'.tr),
                 SizedBox(
                   height: screenSize.height * 0.02,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(MyImages.ic_fb, ),
-                    SizedBox(width: screenSize.height * 0.02,),
-                    Image.asset(MyImages.ic_gplus, ),
-                    SizedBox(width: screenSize.height * 0.02,),
-                    Image.asset(MyImages.ic_mac, ),
+                    Image.asset(
+                      MyImages.ic_fb,
+                    ),
+                    SizedBox(
+                      width: screenSize.height * 0.02,
+                    ),
+                    Image.asset(
+                      MyImages.ic_gplus,
+                    ),
+                    SizedBox(
+                      width: screenSize.height * 0.02,
+                    ),
+                    Image.asset(
+                      MyImages.ic_mac,
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -234,12 +254,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const LightTextBody(data: Constant.ALREADY_AN_ACC),
-                    SizedBox(width: screenSize.height * 0.01,),
-                    const LightTextBodyBlack(data: Constant.SIGNIN_HERE,)
+                    LightTextBody(data: 'already_an_acc'.tr),
+                    SizedBox(
+                      width: screenSize.height * 0.01,
+                    ),
+                    LightTextBodyBlack(
+                      data: 'signIn'.tr,
+                    )
                   ],
                 ),
-
               ],
             ),
           ),
@@ -248,5 +271,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-
-

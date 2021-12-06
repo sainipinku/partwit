@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:part_wit/repository/user_repository.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
@@ -148,17 +149,15 @@ class _LoginScreenState extends State<LoginScreen> {
             key: login_formKey,
             child: Column(
               children: [
-                SizedBox(
-                  height: screenSize.height * 0.10,
-                ),
+                SizedBox(height: screenSize.height * 0.10,),
                 Center(
                   child: Image.asset(MyImages.ic_app_logo),
                 ),
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextHead(
-                  data: Constant.USER_LOGIN,
+                  LightTextHead(
+                  data: 'login'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.01,
@@ -190,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_EMAIL,
+                      hintText: 'email'.tr,
                       prefixIcon: Image.asset(MyImages.ic_mail),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -236,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.USER_PASSWORD,
+                      hintText: 'password'.tr,
                       prefixIcon: Image.asset(MyImages.ic_padlock),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -275,48 +274,44 @@ class _LoginScreenState extends State<LoginScreen> {
                         e.printError();
                       }
                     },
-                    child: const LightTextBody(data: Constant.FORGOT_PASSWORD)),
+                    child:   LightTextBody(data: 'forgotPsw'.tr+'?')),
                 SizedBox(
                   height: screenSize.height * 0.02,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Column(
-                    children: [
-                      CustomButton(
-                        Constant.USER_LOGIN,
-                        54,
-                        onPressed: () {
-                          if (login_formKey.currentState!.validate()) {
-                            _isEmailFocus = false;
-                            _isPasswordFocus = false;
-                            FocusScope.of(this.context).requestFocus(FocusNode());
-                            Helpers.verifyInternet().then((intenet) {
-                              if (intenet != null && intenet) {
-                                createLogin(_emailController.text,_passwordController.text,context).then((response) {
-                                  setState(() {
-                                    loginAndRegistrationresponse = response;
-                                    print(loginAndRegistrationresponse!.token);
-                                  });
+                Column(
+                  children: [
+                    CustomButton(
+                      'login'.tr,
+                      onPressed: () {
+                        if (login_formKey.currentState!.validate()) {
+                          _isEmailFocus = false;
+                          _isPasswordFocus = false;
+                          FocusScope.of(this.context).requestFocus(FocusNode());
+                          Helpers.verifyInternet().then((intenet) {
+                            if (intenet != null && intenet) {
+                              createLogin(_emailController.text,_passwordController.text,context).then((response) {
+                                setState(() {
+                                  loginAndRegistrationresponse = response;
+                                  print(loginAndRegistrationresponse!.token);
                                 });
-                              }
-                              else {
-                               Helpers.createSnackBar(context, "Please check your internate connection");
-                              }
+                              });
                             }
-                            );
-
-                            //repository.createLogin(emailControl.text, pwControl.text, context,country!);
+                            else {
+                             Helpers.createSnackBar(context, "Please check your internet connection");
+                            }
                           }
-                        },
-                      ),
-                    ],
-                  ),
+                          );
+
+                          //repository.createLogin(emailControl.text, pwControl.text, context,country!);
+                        }
+                      },
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: screenSize.height * 0.02,
                 ),
-                const LightTextBody(data: Constant.ENTER_SOCIAL_MEDIA),
+                  LightTextBody(data: 'social_media_text'.tr),
                 SizedBox(
                   height: screenSize.height * 0.02,
                 ),
@@ -351,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const LightTextBody(data: Constant.ALREADY_AN_ACC),
+                      LightTextBody(data: 'already_an_acc'.tr),
                     SizedBox(
                       width: screenSize.height * 0.01,
                     ),
@@ -363,8 +358,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             e.printError();
                           }
                         },
-                        child: const LightTextSubHead(
-                          data: Constant.SIGNIN_HERE,
+                        child:   LightTextSubHead(
+                          data: 'signIn'.tr,
                         ))
                   ],
                 ),

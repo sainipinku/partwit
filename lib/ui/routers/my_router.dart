@@ -4,6 +4,8 @@ import 'package:part_wit/ui/screens/forgotpsw_screen.dart';
 import 'package:part_wit/ui/screens/home_screen.dart';
 import 'package:part_wit/ui/screens/location_screen.dart';
 import 'package:part_wit/ui/screens/login_screen.dart';
+import 'package:part_wit/ui/screens/profile/save_items_screen.dart';
+import 'package:part_wit/ui/screens/profile/user_profile.dart';
 import 'package:part_wit/ui/screens/reset_new_password.dart';
 import 'package:part_wit/ui/screens/signup_screen.dart';
 import 'package:part_wit/ui/screens/splash_screen.dart';
@@ -22,6 +24,8 @@ class MyRouter {
   static var createProfile = "/createProfile";
   static var welcomeScreen = "/welcomeScreen";
   static var forgotPassword = "/forgotPassword";
+  static var userProfile = "/forgotPassword";
+  static var saveItems = "/saveItems";
 
   static var route = [
     GetPage(name: '/', page: () => SplashScreen()),
@@ -34,6 +38,8 @@ class MyRouter {
     GetPage(name: MyRouter.welcomeScreen, page: () => const WelcomeScreen()),
     GetPage(name: MyRouter.forgotPassword, page: () => const ForgotPassword()),
     GetPage(name: MyRouter.resetNewPasswordScreen, page: () => const ResetNewPassword()),
+    GetPage(name: MyRouter.userProfile, page: () => const UserProfile()),
+    GetPage(name: MyRouter.saveItems, page: () => const SaveItems()),
 
   ];
 }

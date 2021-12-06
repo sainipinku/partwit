@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
@@ -11,7 +12,7 @@ import 'package:part_wit/ui/styles/my_images.dart';
 import 'package:part_wit/ui/widgets/custom_button.dart';
 import 'package:part_wit/ui/widgets/light_text_body.dart';
 import 'package:part_wit/ui/widgets/light_text_head.dart';
-import 'package:part_wit/utiles/constant.dart';
+
 import 'package:part_wit/utiles/utility.dart';
 
 
@@ -51,8 +52,8 @@ class _CreateProfileState extends State<CreateProfile> {
                 SizedBox(
                   height: screenSize.height * 0.03,
                 ),
-                const LightTextHead(
-                  data: Constant.CREATE_PROFILE,
+                  LightTextHead(
+                  data: 'createProfile'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.05,
@@ -61,7 +62,7 @@ class _CreateProfileState extends State<CreateProfile> {
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextBody(data: Constant.UPLOAD_PROFILE,),
+                  LightTextBody(data: 'uploadProfile'.tr,),
                 SizedBox(
                   height: screenSize.height * 0.04,
                 ),
@@ -78,7 +79,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
-                      hintText: Constant.YOUR_NAME,
+                      hintText: 'yourName'.tr,
                       prefixIcon: Image.asset(MyImages.ic_feather_user),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -106,8 +107,8 @@ class _CreateProfileState extends State<CreateProfile> {
                   child: Column(
                     children: [
                       CustomButton(
-                        Constant.CONTINUE,
-                        54,
+                        'continue'.tr,
+
                         onPressed: () {
                           try {
                             Get.toNamed(MyRouter.welcomeScreen);
@@ -170,8 +171,8 @@ class _CreateProfileState extends State<CreateProfile> {
   }
 
   getImageWidget() {
+
     if (_imageFile != null) {
-      Navigator.pop(context);
       return CircleAvatar(
         backgroundColor: Colors.grey,
         radius: 60,
@@ -182,14 +183,17 @@ class _CreateProfileState extends State<CreateProfile> {
       );
     } else {
       return const CircleAvatar(
-        backgroundColor: Colors.grey,
-        radius: 60,
-        child: CircleAvatar(
-          radius: 58,
-          backgroundImage: AssetImage(MyImages.ic_person //Convert File type of image to asset image path),
-        ),
-      ));
+          backgroundColor: Colors.grey,
+          radius: 60,
+          child: CircleAvatar(
+            radius: 58,
+            backgroundImage: AssetImage(MyImages.ic_person //Convert File type of image to asset image path),
+            ),
+          ));
     }
+
+
+
   }
 
   void OpenSheet() {
@@ -224,6 +228,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   color: Colors.grey,
                 ),
                 onPressed: () {
+                  Get.back();
                   takePhoto(ImageSource.camera);
                 },
                 label: const Text('Camera',
@@ -239,6 +244,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   color: Colors.grey,
                 ),
                 onPressed: () {
+                  Get.back();
                   takePhoto(ImageSource.gallery);
                 },
                 label: const Text('Gallery',

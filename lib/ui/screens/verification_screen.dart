@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
@@ -41,9 +42,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    final Object? rcvdData = ModalRoute.of(context)!.settings.arguments;
+    final Object? getArg = ModalRoute.of(context)!.settings.arguments;
 
-    print("rcvd fdata ${rcvdData}");
+    print("rcvd fdata ${getArg}");
 
     return GestureDetector(
       onTap: () {
@@ -66,20 +67,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 SizedBox(
                   height: screenSize.height * 0.03,
                 ),
-                const LightTextHead(
-                  data: Constant.VERIFICATION,
+                LightTextHead(
+                  data: 'verification'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextBody(
-                  data: Constant.ENTER_VERIFICATION,
+                LightTextBody(
+                  data: 'enter_verification_code'.tr,
                 ),
                 SizedBox(
                   height: screenSize.height * 0.01,
                 ),
-                const LightTextBody(
-                  data: Constant.SEND_VERIFICATION,
+                LightTextBody(
+                  data: 'sendCode'.tr,
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(
@@ -100,10 +101,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           controller: _pinPutController,
                           cursorColor: MyAppTheme.whiteColor,
                           textStyle: const TextStyle(
-                            fontSize: 14,
-                            color: MyAppTheme.textPrimary,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 14,
+                              color: MyAppTheme.textPrimary,
+                              fontWeight: FontWeight.bold),
                           submittedFieldDecoration: _pinPutDecoration.copyWith(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -130,19 +130,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   child: Column(
                     children: [
                       CustomButton(
-                        Constant.SUBMIT,
-                        54,
+                        'submit'.tr,
+
                         onPressed: () {
                           if (verification_formKey.currentState!.validate()) {
-
-                            FocusScope.of(this.context).requestFocus(FocusNode());
+                            FocusScope.of(this.context)
+                                .requestFocus(FocusNode());
                             try {
                               Get.toNamed(MyRouter.resetNewPasswordScreen);
                             } on Exception catch (e) {
                               e.printError();
                             }
                           }
-
                         },
                       ),
                     ],
@@ -151,14 +150,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 SizedBox(
                   height: screenSize.height * 0.05,
                 ),
-                const LightTextBody(
-                  data: Constant.DONT_RECEIVE,
+                LightTextBody(
+                  data: 'dont_receive'.tr + '?',
                 ),
                 SizedBox(
                   height: screenSize.height * 0.01,
                 ),
-                const LightTextBodyBlack(
-                  data: Constant.RESEND_CODE,
+                LightTextBodyBlack(
+                  data: 'resendCode'.tr,
                 ),
               ],
             ),

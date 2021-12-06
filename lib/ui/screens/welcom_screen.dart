@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
 import 'package:part_wit/ui/widgets/custom_button.dart';
@@ -33,8 +34,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           SizedBox(
             height: screenSize.height * 0.03,
           ),
-          const LightTextHead(
-            data: Constant.WELCOME,
+            LightTextHead(
+            data:'welcome'.tr,
           ),
           SizedBox(
             height: screenSize.height * 0.05,
@@ -55,8 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Column(
               children: [
                 CustomButton(
-                  Constant.CONTINUE,
-                  54,
+                  'continue'.tr,
                   onPressed: () {
                     print('click mefff');
                   },
