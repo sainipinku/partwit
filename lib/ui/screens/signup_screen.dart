@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/dynamic_extensions.dart';
-import 'package:part_wit/ui/routers/my_router.dart';
 import 'package:part_wit/ui/styles/my_app_theme.dart';
 import 'package:part_wit/ui/styles/my_images.dart';
 import 'package:part_wit/ui/widgets/custom_button.dart';
@@ -15,6 +12,7 @@ import 'package:part_wit/utiles/constant.dart';
 import 'package:part_wit/utiles/utility.dart';
 
 
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -23,7 +21,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final signup_formKey = GlobalKey<FormState>();
+  final signupkey_formKey = GlobalKey<FormState>();
+  bool _showPassword = false,_showconfirmPassword = false,_isPasswordFocus = false,_isEmailFocus = false,_isConfirmPasswordFocus = false;
+  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _confrimpasswordController = new TextEditingController();
+  FocusNode passWordFocus = new FocusNode();
+  FocusNode confrmPassWordFocus = new FocusNode();
+  FocusNode emailFocus = new FocusNode();
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -51,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: MyAppTheme.backgroundColor,
         body: SingleChildScrollView(
           child: Form(
-            key: signup_formKey,
+            key: signupkey_formKey,
             child: Column(
               children: [
                 SizedBox(
@@ -78,7 +83,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
                     obscureText: false,
-                    //  controller: emailController,
+                    focusNode: emailFocus,
+                    controller: _emailController,
+                    onTap: () {
+                      setState(() {
+                        _isEmailFocus = true;
+                        _isPasswordFocus = false;
+                        _isConfirmPasswordFocus = false;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter email address';
+                      } /*else if (!isEmail(_emailController.text)) {
+                        return 'Please enter valid email address';
+                      }*/
+                      return null;
+                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: MyAppTheme.buttonShadow_Color,
@@ -107,8 +128,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: MyAppTheme.textPrimary,
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
-                    obscureText: false,
-                    // controller: passwordController,
+
+                    controller: _passwordController,
+                    obscureText: !this._showPassword,
+                    focusNode: passWordFocus,
+                    onTap: () {
+                      print("EMAIN TAP");
+                      //emailFocus.unfocus();
+                      setState(() {
+                        _isConfirmPasswordFocus = false;
+                        _isPasswordFocus = true;
+                        _isEmailFocus = false;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       suffixIconConstraints: const BoxConstraints(
                           minHeight: 24,
@@ -142,8 +180,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: MyAppTheme.textPrimary,
                         fontWeight: FontWeight.normal,
                         fontSize: 14),
-                    obscureText: false,
-                    // controller: passwordController,
+                    obscureText: !this._showconfirmPassword,
+                    focusNode: confrmPassWordFocus,
+                    onTap: () {
+                      print("EMAIN TAP");
+                      //emailFocus.unfocus();
+                      setState(() {
+                        _isConfirmPasswordFocus = true;
+                        _isPasswordFocus = false;
+                        _isEmailFocus = false;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       suffixIconConstraints: const BoxConstraints(
                           minHeight: 44,
@@ -177,7 +230,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CustomCheckbox(key: signup_formKey,),
+                    CustomCheckbox(key: signupkey_formKey,),
                     SizedBox(width: screenSize.height * 0.001,),
                     const LightTextBody(data: Constant.AGREE),
                     SizedBox(width: screenSize.height * 0.001,),
@@ -201,10 +254,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Constant.REGISTER,
                         54,
                         onPressed: () {
-                          try {
-                            Get.toNamed(MyRouter.verificationScreen);
-                          } on Exception catch (e) {
-                            e.printError();
+                          if (signupkey_formKey.currentState!.validate()) {
+                            _isConfirmPasswordFocus = false;
+                            _isPasswordFocus = false;
+                            _isEmailFocus = false;
+                            FocusScope.of(this.context).requestFocus(FocusNode());
+                            try {
+                             // Get.toNamed(MyRouter.verificationScreen);
+                            } on Exception catch (e) {
+                              e.printError();
+                            }
                           }
                         },
                       ),

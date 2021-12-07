@@ -39,16 +39,19 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordController = new TextEditingController();
   FocusNode emailFocus = new FocusNode();
   FocusNode passWordFocus = new FocusNode();
-  GoogleSignInAccount? _currentUser;
+  late GoogleSignInAccount _userObj;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  bool isLoggedIn = false;
+  //GoogleSignInAccount? _currentUser;
   String _contactText = '';
 
   final _unqKey = UniqueKey();
-  GoogleSignIn _googleSignIn = GoogleSignIn(
+/*  GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
       'https://www.googleapis.com/auth/contacts.readonly',
     ],
-  );
+  );*/
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -64,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
       const SystemUiOverlayStyle(statusBarColor: MyAppTheme.backgroundColor),
     );
 
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+   /* _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       setState(() {
         _currentUser = account;
       });
@@ -72,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _handleGetContact(_currentUser!);
       }
     });
-    _googleSignIn.signInSilently();
+    _googleSignIn.signInSilently();*/
   }
 
 
@@ -123,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Future<void> _handleSignIn() async {
+  /*Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
     } catch (error) {
@@ -131,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> _handleSignOut() => _googleSignIn.disconnect();
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();*/
 
   @override
   Widget build(BuildContext context) {
@@ -331,7 +334,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        _handleSignIn();
+                       // _handleSignIn();
+                        _googleSignIn.signIn().then((userData) {
+                          setState(() {
+                           // _isLoggedIn = true;
+                            _userObj = userData!;
+                            print(_userObj);
+                          });
+                        }).catchError((e) {
+                          print(e);
+                        });
                       }, // handle your image tap here
                       child: Image.asset(
                         MyImages.ic_gplus,
